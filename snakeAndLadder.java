@@ -7,7 +7,7 @@ public class snakeAndLadder {
 		int position = 0;
 
 		System.out.println("The position of the player was: "+ position);
-		while (position <=100) {
+		while (position < 100) {
 			double diceVal = Math.floor(Math.random() * 10) % 6 + 1;
 			double option = Math.floor(Math.random() * 10) % 3;
 
@@ -25,8 +25,14 @@ public class snakeAndLadder {
 				break;
 			case IS_LADDER:
 				position += diceVal;
-				System.out.println("Number on the dice: "+ diceVal);
-				System.out.println("Player got ladder so moved ahead to position: " + position);
+				if (position > 100) {
+					position -= diceVal;
+					System.out.println("Number on the dice: "+ diceVal);
+					System.out.println("Since the number on dice is more then required player stays at position: " + position);
+				}
+				else
+					System.out.println("Number on the dice: "+ diceVal);
+					System.out.println("Player got ladder so moved ahead to position: " + position);
 				break;
 			default:
 				System.out.println("Player didn't play so current position: " + position);
@@ -34,5 +40,4 @@ public class snakeAndLadder {
 
 		}
 	}
-
 }
