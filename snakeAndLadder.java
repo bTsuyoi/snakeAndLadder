@@ -1,55 +1,59 @@
-import java.util.ArrayList;
 public class snakeAndLadder {
 	private static final int IS_SNAKE = 0;
-	private static final int IS_LADDER = 1;
+
 
 	public static void main(String[] args) {
-		ArrayList<Integer> player_position = new ArrayList<Integer>();
-		int position = 0;
-		int no_of_times_dice_was_rolled = 0;
-		System.out.println("The position of the player was: "+ position);
-		while (position < 100) {
-			double diceVal = Math.floor(Math.random() * 10) % 6 + 1;
-			double option = Math.floor(Math.random() * 10) % 3;
 
-			switch ((int)option) {
-			case IS_SNAKE:
-				no_of_times_dice_was_rolled += 1;
-				position -= diceVal;
-				if (position < 0) {
-					position = 0;
-					System.out.println("Number on the dice: "+ diceVal);
-					System.out.println("Since player can't go behind position 0 player stays at position: " + position);
-					player_position.add(position);
+		int position_player_1 = 0;
+		int position_player_2 = 0;
+		int turn = 1;
+		while (position_player_1 < 100 && position_player_2 < 100) {
+
+			if (turn == 1) {
+				double diceVal_player_1 = Math.floor(Math.random() * 10) % 6 + 1;
+				double option_player_1 = Math.floor(Math.random() * 10) % 2;
+
+				switch ((int)option_player_1) {
+				case IS_SNAKE:
+					position_player_1 -= diceVal_player_1;
+					if (position_player_1 < 0) {
+						position_player_1 = 0;
+					}
+					turn = 2;
+					break;
+				default:
+					position_player_1 += diceVal_player_1;
+					if (position_player_1 > 100) {
+						position_player_1 -= diceVal_player_1;
+					}
+					break;
 				}
-				else
-					System.out.println("Number on the dice: "+ diceVal);
-					System.out.println("Player got snake so moved back to position: " + position);
-					player_position.add(position);
-				break;
-			case IS_LADDER:
-				position += diceVal;
-				no_of_times_dice_was_rolled += 1;
-				if (position > 100) {
-					position -= diceVal;
-					System.out.println("Number on the dice: "+ diceVal);
-					System.out.println("Since the number on dice is more then required player stays at position: " + position);
-					player_position.add(position);
-				}
-				else
-					System.out.println("Number on the dice: "+ diceVal);
-					System.out.println("Player got ladder so moved ahead to position: " + position);
-					player_position.add(position);
-				break;
-			default:
-				System.out.println("Player didn't play so current position: " + position);
 			}
+			else {
+				double diceVal_player_2 = Math.floor(Math.random() * 10) % 6 + 1;
+				double option_player_2 = Math.floor(Math.random() * 10) % 2;
 
+				switch ((int)option_player_2) {
+				case IS_SNAKE:
+					position_player_2 -= diceVal_player_2;
+					if (position_player_2 < 0) {
+						position_player_2 = 0;
+					}
+					turn = 1;
+					break;
+				default:
+					position_player_2 += diceVal_player_2;
+					if (position_player_2 > 100) {
+						position_player_2 -= diceVal_player_2;
+					}
+					break;
+				}
+			}
 		}
-		System.out.println("The dice was rolled "+ no_of_times_dice_was_rolled +" number of times");
-		System.out.println("The positions of the player after every dice roll are: ");
-		for (int i : player_position) {
-		      System.out.println(i);
-		    }
+		if (position_player_1 == 100) {
+			System.out.println("Player one won.");
+		}
+		else
+			System.out.println("player two won.");
 	}
 }
